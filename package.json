@@ -1,0 +1,19 @@
+{
+  "name": "nanagochi",
+  "version": "1.0.0",
+  "description": "digitale pet",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naddiya/nanagochi.git"
+  },
+  "author": "Naddiya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Naddiya/nanagochi/issues"
+  },
+  "homepage": "https://github.com/Naddiya/nanagochi#readme"
+}
