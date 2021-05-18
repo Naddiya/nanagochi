@@ -1,9 +1,11 @@
-import game from './gameState';
-
-const TICK_RATE = 3000;
+import initButtons from './buttons';
+import game, { handleUserAction } from "./gameState";
+import { TICK_RATE } from './constants';
 
 async function init() {
   console.log('starting game');
+
+  initButtons(handleUserAction);
 
   let nexTimeToTick = Date.now();
 
