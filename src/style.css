@@ -87,11 +87,16 @@ body {
 
 .modal {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: blueviolet;
+  top: 0px;
+  left: 100px;
+  right: 100px;
+  background-color: rgb(115, 41, 185);
   color: white;
+  font-weight: 600;
+  padding: 3rem;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 .modal:empty {
