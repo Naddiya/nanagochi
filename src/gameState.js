@@ -1,5 +1,5 @@
 import { SCENES, RAIN_CHANCE, DAY_LENGTH, NIGHT_LENGTH, getNextHungerTime, getNextDieTime, getNextPoopTime } from "./constants";
-import { modFox, modScene, togglePoopBag } from "./ui";
+import { modFox, modScene, togglePoopBag, writeModal } from "./ui";
 
 const gameState = {
   current: "INIT",
@@ -11,10 +11,9 @@ const gameState = {
   timeToStartCelebrating: -1,
   timeToEndCelebrating: -1,
   poopTime: -1,
+  scene: 0,
   tick() {
     this.clock++;
-    console.log("clock ", this.clock);
-
     if (this.clock === this.wakeTime) {
       this.wake();
     } else if (this.clock === this.sleepTime) {
@@ -38,6 +37,7 @@ const gameState = {
     this.wakeTime = this.clock + 3;
     modFox("egg");
     modScene("day");
+    writeModal();
   },
   wake() {
     this.current = "IDLING";
@@ -134,11 +134,21 @@ const gameState = {
       }
     }
   },
+  clearTimes() {
+    this.wakeTime = -1;
+    this.sleepTime = -1;
+    this.hungryTime = -1;
+    this.dieTime = -1;
+    this.poopTime = -1;
+    this.timeToStartCelebrating = -1;
+    this.timeToEndCelebrating = -1;
+  },
   sleep() {
     this.state = "SLEEP";
     modFox("sleep");
     modScene("night");
     this.wakeTime = this.clock + NIGHT_LENGTH;
+    this.clearTimes();
   },
   die() {
     this.current = "DEAD";
