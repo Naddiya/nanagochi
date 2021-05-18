@@ -83,7 +83,12 @@ const gameState = {
     this.determineFoxState();
   },
   cleanUpPoop() {
-    console.log("scoop up that shit");
+    if (this.current === "POOPING") {
+      this.dieTime = -1;
+      togglePoopBag(true);
+      this.startCelebrating();
+      this.hungryTime = getNextHungerTime(this.clock);
+    }
   },
   poop() {
     this.current = "POOPING";
@@ -92,7 +97,6 @@ const gameState = {
     modFox("pooping");
   },
   feed() {
-    // can only feed when hungry
     if (this.current !== "HUNGRY") {
       return;
     }
@@ -119,6 +123,7 @@ const gameState = {
     this.timeToEndCelebrating = -1;
     this.current = "IDLING";
     this.determineFoxState();
+    togglePoopBag(false);
   },
   determineFoxState() {
     if (this.current === 'IDLING') {
@@ -136,7 +141,11 @@ const gameState = {
     this.wakeTime = this.clock + NIGHT_LENGTH;
   },
   die() {
-    console.log("rip");
+    this.current = "DEAD";
+    modScene("dead");
+    modFox("dead");
+    this.clearTimes();
+    writeModal("The fox died :( <br/> Press the middle button to start");
   },
 
 };
