@@ -85,9 +85,9 @@ body {
 
 /* modal */
 
-.modal {
+.modal-inner {
   position: absolute;
-  top: 0px;
+  top: 150px;
   left: 100px;
   right: 100px;
   background-color: rgb(115, 41, 185);
