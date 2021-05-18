@@ -1,3 +1,6 @@
+import { SCENES, RAIN_CHANCE } from "./constants";
+import { modFox, modScene } from "./ui";
+
 const gameState = {
   current: "INIT",
   clock: 1,
@@ -13,14 +16,17 @@ const gameState = {
     return this.clock;
   },
   startGame() {
-    console.log("hatching");
     this.current = "HATCHING";
     this.wakeTime = this.clock + 3;
+    modFox("egg");
+    modScene("day");
   },
   wake() {
-    console.log("wakingUp");
     this.current = "IDLING";
     this.wakeTime = - 1;
+    modFox("idling");
+    this.scene = Math.random() > RAIN_CHANCE ? 0 : 1;
+    modScene(SCENES[this.scene]);
   },
   handleUserAction(icon) {
     if (
@@ -54,7 +60,7 @@ const gameState = {
     console.log("changeWeather");
   },
   cleanUpPoop() {
-    console.log("cleanUpPoop");
+    console.log("scoop Up the Poop");
   },
   feed() {
     console.log("feed");
