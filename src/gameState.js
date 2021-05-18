@@ -1,16 +1,19 @@
-import { SCENES, RAIN_CHANCE } from "./constants";
+import { SCENES, RAIN_CHANCE, DAY_LENGTH, NIGHT_LENGTH } from "./constants";
 import { modFox, modScene } from "./ui";
 
 const gameState = {
   current: "INIT",
   clock: 1,
   wakeTime: -1,
+  sleepTime: -1,
   tick() {
     this.clock++;
     console.log("clock ", this.clock);
 
     if (this.clock === this.wakeTime) {
       this.wake();
+    } else if (this.clock === this.sleepTime) {
+      this.sleep();
     }
 
     return this.clock;
@@ -27,6 +30,13 @@ const gameState = {
     modFox("idling");
     this.scene = Math.random() > RAIN_CHANCE ? 0 : 1;
     modScene(SCENES[this.scene]);
+    this.sleepTime = this.clock + DAY_LENGTH;
+  },
+  sleep() {
+    this.state = "SLEEP";
+    modFox("sleep");
+    modScene("night");
+    this.wakeTime = this.clock + NIGHT_LENGTH;
   },
   handleUserAction(icon) {
     if (
@@ -60,11 +70,12 @@ const gameState = {
     console.log("changeWeather");
   },
   cleanUpPoop() {
-    console.log("scoop Up the Poop");
+    console.log("scoop up that shit");
   },
   feed() {
     console.log("feed");
-  }
+  },
+
 };
 
 export const handleUserAction = gameState.handleUserAction.bind(gameState);
